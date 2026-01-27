@@ -6,7 +6,7 @@ const getSettingsPath = () => path.join(app.getPath('userData'), 'settings.json'
 
 const defaultSettings = {
     fpsCap: -1,
-    profile: 'default'
+    profile: 'extreme' // Definido como Extreme para máximo desempenho por padrão
 };
 
 /**

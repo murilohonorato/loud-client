@@ -28,67 +28,56 @@ function createMenu(mainWindow, isDev) {
             ]
         },
         {
-            label: 'Perfis de Performance',
+            label: 'Configurações',
             submenu: [
                 {
-                    label: 'Default',
-                    click: () => {
-                        mainWindow.webContents.send('set-profile', 'default');
-                        saveSettings({ profile: 'default' });
-                    }
+                    label: 'Perfis de Performance',
+                    submenu: [
+                        {
+                            label: 'Default',
+                            click: () => {
+                                mainWindow.webContents.send('set-profile', 'default');
+                                saveSettings({ profile: 'default' });
+                            }
+                        },
+                        {
+                            label: 'Extreme (No UI)',
+                            click: () => {
+                                mainWindow.webContents.send('set-profile', 'extreme');
+                                saveSettings({ profile: 'extreme' });
+                            }
+                        },
+                        {
+                            label: 'Low Latency',
+                            click: () => {
+                                mainWindow.webContents.send('set-profile', 'low-latency');
+                                saveSettings({ profile: 'low-latency' });
+                            }
+                        }
+                    ]
                 },
                 {
-                    label: 'Extreme (No UI)',
-                    click: () => {
-                        mainWindow.webContents.send('set-profile', 'extreme');
-                        saveSettings({ profile: 'extreme' });
-                    }
+                    label: 'FPS Cap',
+                    submenu: [
+                        {
+                            label: 'Unlimited',
+                            click: () => {
+                                mainWindow.webContents.send('set-fps-cap', -1);
+                                saveSettings({ fpsCap: -1 });
+                            }
+                        },
+                        { label: '60 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 60); saveSettings({ fpsCap: 60 }); } },
+                        { label: '120 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 120); saveSettings({ fpsCap: 120 }); } },
+                        { label: '144 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 144); saveSettings({ fpsCap: 144 }); } },
+                        { label: '240 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 240); saveSettings({ fpsCap: 240 }); } }
+                    ]
                 },
+                { type: 'separator' },
                 {
-                    label: 'Low Latency',
+                    label: 'Tela Cheia',
+                    accelerator: 'F11',
                     click: () => {
-                        mainWindow.webContents.send('set-profile', 'low-latency');
-                        saveSettings({ profile: 'low-latency' });
-                    }
-                }
-            ]
-        },
-        {
-            label: 'FPS Cap',
-            submenu: [
-                {
-                    label: 'Unlimited',
-                    click: () => {
-                        mainWindow.webContents.send('set-fps-cap', -1);
-                        saveSettings({ fpsCap: -1 });
-                    }
-                },
-                {
-                    label: '60 FPS',
-                    click: () => {
-                        mainWindow.webContents.send('set-fps-cap', 60);
-                        saveSettings({ fpsCap: 60 });
-                    }
-                },
-                {
-                    label: '120 FPS',
-                    click: () => {
-                        mainWindow.webContents.send('set-fps-cap', 120);
-                        saveSettings({ fpsCap: 120 });
-                    }
-                },
-                {
-                    label: '144 FPS',
-                    click: () => {
-                        mainWindow.webContents.send('set-fps-cap', 144);
-                        saveSettings({ fpsCap: 144 });
-                    }
-                },
-                {
-                    label: '240 FPS',
-                    click: () => {
-                        mainWindow.webContents.send('set-fps-cap', 240);
-                        saveSettings({ fpsCap: 240 });
+                        mainWindow.setFullScreen(!mainWindow.isFullScreen());
                     }
                 }
             ]
@@ -96,8 +85,8 @@ function createMenu(mainWindow, isDev) {
         {
             label: 'Client',
             submenu: [
-                { label: 'Recarregar', role: 'reload' },
-                ...(isDev ? [{ label: 'DevTools', role: 'toggleDevTools' }] : []),
+                { label: 'Recarregar', role: 'reload', accelerator: 'F5' },
+                ...(isDev ? [{ label: 'DevTools', role: 'toggleDevTools', accelerator: 'F12' }] : []),
                 { label: 'Sair', role: 'quit' }
             ]
         }
