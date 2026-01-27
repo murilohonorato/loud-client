@@ -68,6 +68,7 @@ function createWindow() {
         height: 720,
         title: "Loud Client",
         backgroundColor: '#000000',
+        autoHideMenuBar: true, // Esconde a barra de menu por padrão (Alt para mostrar)
         icon: path.join(__dirname, '..', 'icon.png'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
