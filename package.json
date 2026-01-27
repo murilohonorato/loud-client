@@ -1,0 +1,43 @@
+{
+  "name": "loud-client",
+  "productName": "Loud Client",
+  "version": "1.0.0",
+  "description": "Krunker.io Performance Client",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.loud.client",
+    "productName": "Loud Client",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Loud Client"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "asar": true
+  },
+  "keywords": [],
+  "author": "Loud",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^26.4.0"
+  }
+}

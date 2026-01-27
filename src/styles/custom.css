@@ -1,0 +1,45 @@
+/* Loud Client - Otimizações de Interface */
+
+/* Remover anúncios e elementos desnecessários */
+#adCon, .ad-unit, #preroll {
+    display: none !important;
+}
+
+/* Reduzir efeitos visuais de menu para maior performance */
+#menuWindow {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+/* Tornar a UI mais estática */
+* {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Otimizar chat */
+#chatList {
+    background-color: transparent !important;
+    text-shadow: none !important;
+}
+
+/* Remover elementos de rede sociais/links que consomem recursos */
+#followBtn, #twitchBtn, #twitterBtn {
+    display: none !important;
+}
+
+/* Esconder decorações de ranking no menu para limpeza */
+.kr-rank-icon, #claimHolder, #merchHolder, #newsHolder {
+    display: none !important;
+}
+
+/* Remover botões de redes sociais adicionais */
+.share-button, .social-button {
+    display: none !important;
+}
+
+/* Performance: Forçar camadas de renderização simples */
+#uiBase {
+    will-change: transform;
+}
