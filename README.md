@@ -65,6 +65,8 @@ Se você ainda não enviou o código para o GitHub:
 
 ### 2. Criar uma Release Automática
 Para gerar o instalador e colocá-lo automaticamente no GitHub:
+
+**Opção A: Via Tags (Recomendado)**
 1. Crie uma "Tag" de versão:
    ```bash
    git tag v1.0.0
@@ -72,6 +74,12 @@ Para gerar o instalador e colocá-lo automaticamente no GitHub:
    ```
 2. O GitHub Actions detectará a tag e iniciará o build automaticamente.
 3. Após alguns minutos, o arquivo `.exe` aparecerá na aba **Releases** do seu repositório.
+
+**Opção B: Manualmente (Actions)**
+1. Vá na aba **Actions** do seu repositório no GitHub.
+2. Selecione o workflow **Build and Release** à esquerda.
+3. Clique no botão **Run workflow** à direita e confirme.
+4. Isso gerará um build da branch principal e criará uma release.
 
 ### 3. Publicação Manual
 Se preferir fazer manualmente:
