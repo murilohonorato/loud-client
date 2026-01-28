@@ -63,7 +63,7 @@ ipcRenderer.on('set-profile', (event, profile) => {
 
 /**
  * Implementação de FPS Cap (Limitação de Taxa de Quadros)
- * Intercepta o requestAnimationFrame para controlar quando o callback do jogo é executado.
+ * Intercepta o requestAnimationFrame apenas se um limite de FPS for definido.
  */
 let targetFPS = -1; // -1 significa ilimitado
 let lastFrameTime = performance.now();
@@ -71,24 +71,19 @@ let lastFrameTime = performance.now();
 const originalRAF = window.requestAnimationFrame;
 
 window.requestAnimationFrame = (callback) => {
-    return originalRAF((time) => {
-        // Se ilimitado, apenas executa o callback normalmente
-        if (targetFPS === -1) {
-            lastFrameTime = time;
-            callback(time);
-            return;
-        }
+    // Se ilimitado, usa o rAF original diretamente para evitar overhead
+    if (targetFPS === -1) {
+        return originalRAF(callback);
+    }
 
+    return originalRAF((time) => {
         const frameInterval = 1000 / targetFPS;
         const elapsed = time - lastFrameTime;
 
-        // Se o tempo decorrido for maior ou igual ao intervalo desejado, executa o frame
         if (elapsed >= frameInterval) {
-            // Sincroniza o lastFrameTime subtraindo o excesso (jitter) para manter a média estável
             lastFrameTime = time - (elapsed % frameInterval);
             callback(time);
         } else {
-            // Se ainda não deu o tempo, solicita o próximo frame do navegador para tentar novamente
             window.requestAnimationFrame(callback);
         }
     });
@@ -98,4 +93,6 @@ window.requestAnimationFrame = (callback) => {
 ipcRenderer.on('set-fps-cap', (event, cap) => {
     console.log(`Loud Client: FPS Cap alterado para: ${cap}`);
     targetFPS = parseInt(cap);
+    // Reinicia o tempo base para evitar pulos
+    lastFrameTime = performance.now();
 });

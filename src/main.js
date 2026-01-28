@@ -8,7 +8,7 @@ const isDev = !app.isPackaged;
 
 /**
  * Configuração de Performance do Chromium
- * Flags otimizadas para Krunker.io
+ * Flags otimizadas e estáveis para Krunker.io
  */
 
 if (!isDev) {
@@ -19,24 +19,21 @@ if (!isDev) {
     console.error = () => {};
 }
 
+// Essenciais para FPS alto e baixa latência
 app.commandLine.appendSwitch('disable-frame-rate-limit');
 app.commandLine.appendSwitch('disable-gpu-vsync');
 app.commandLine.appendSwitch('force-gpu-rasterization');
 app.commandLine.appendSwitch('enable-gpu-rasterization');
-app.commandLine.appendSwitch('enable-oop-rasterization');
 app.commandLine.appendSwitch('enable-accelerated-2d-canvas');
 app.commandLine.appendSwitch('ignore-gpu-blocklist');
-app.commandLine.appendSwitch('enable-webgl2-compute-context');
-app.commandLine.appendSwitch('disable-webgl-image-chromium');
-app.commandLine.appendSwitch('disable-2d-canvas-clip-aa');
+
+// Estabilidade de Background
 app.commandLine.appendSwitch('disable-background-timer-throttling');
 app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows');
-app.commandLine.appendSwitch('enable-zero-copy');
-app.commandLine.appendSwitch('enable-parallel-assembling');
+
+// Redução de Overhead
 app.commandLine.appendSwitch('no-proxy-server');
-app.commandLine.appendSwitch('disable-site-isolation-trials');
-app.commandLine.appendSwitch('disable-low-end-device-mode');
 app.commandLine.appendSwitch('disable-breakpad');
 app.commandLine.appendSwitch('disable-component-update');
 app.commandLine.appendSwitch('disable-print-preview');
@@ -46,6 +43,8 @@ app.commandLine.appendSwitch('disable-speech-api');
 app.commandLine.appendSwitch('disable-hang-monitor');
 app.commandLine.appendSwitch('disable-bundled-ppapi-flash');
 app.commandLine.appendSwitch('disable-logging');
+
+// Outros
 app.commandLine.appendSwitch('high-dpi-support', '1');
 
 let mainWindow;
