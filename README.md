@@ -20,7 +20,6 @@ loud-client/
 As flags foram selecionadas para máxima estabilidade, removendo switches experimentais que causavam stutters.
 *   `--disable-frame-rate-limit`: FPS Ilimitado.
 *   `--disable-gpu-vsync`: Redução drástica de Input Lag.
-*   `--no-proxy-server`: Ignora configurações de proxy para conexão direta.
 
 ## Configurações e Atalhos
 O client agora salva suas preferências automaticamente.
@@ -33,7 +32,7 @@ O client agora salva suas preferências automaticamente.
 ## GitHub Actions (CI/CD)
 O repositório está configurado para gerar builds automáticos:
 1. **CI Check**: Verifica se o código compila a cada push.
-2. **Build and Release**: Ao criar uma tag (ex: `v1.0.6`), o GitHub gera automaticamente o instalador `.exe` e o publica em "Releases".
+2. **Build and Release**: Ao criar uma tag (ex: `v1.0.7`), o GitHub gera automaticamente o instalador `.exe` e o publica em "Releases".
 
 ---
 **Desenvolvido por Loud** - Otimizado para a comunidade competitiva.

@@ -24,18 +24,6 @@ if (!isDev) {
 app.commandLine.appendSwitch('disable-frame-rate-limit');
 app.commandLine.appendSwitch('disable-gpu-vsync');
 
-// Redução de Latência e Overhead
-app.commandLine.appendSwitch('no-proxy-server');
-app.commandLine.appendSwitch('disable-breakpad');
-app.commandLine.appendSwitch('disable-component-update');
-app.commandLine.appendSwitch('disable-print-preview');
-app.commandLine.appendSwitch('disable-metrics');
-app.commandLine.appendSwitch('disable-metrics-repo');
-app.commandLine.appendSwitch('disable-speech-api');
-app.commandLine.appendSwitch('disable-hang-monitor');
-app.commandLine.appendSwitch('disable-bundled-ppapi-flash');
-app.commandLine.appendSwitch('disable-logging');
-
 let mainWindow;
 
 function createWindow() {
