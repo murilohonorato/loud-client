@@ -32,7 +32,7 @@ O client agora salva suas preferências automaticamente.
 ## GitHub Actions (CI/CD)
 O repositório está configurado para gerar builds automáticos:
 1. **CI Check**: Verifica se o código compila a cada push.
-2. **Build and Release**: Ao criar uma tag (ex: `v1.0.8`), o GitHub gera automaticamente o instalador `.exe` e o publica em "Releases".
+2. **Build and Release**: Ao criar uma tag (ex: `v1.0.9`), o GitHub gera automaticamente o instalador `.exe` e o publica em "Releases".
 
 ---
 **Desenvolvido por Loud** - Otimizado para a comunidade competitiva.

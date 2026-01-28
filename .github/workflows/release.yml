@@ -24,6 +24,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Get Version from package.json
+        id: get_version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
       - name: Build Electron App
         run: npm run build
         env:
@@ -32,31 +40,36 @@ jobs:
       - name: Verify Build Artifacts
         shell: bash
         run: |
-          echo "Listing all files in project root:"
-          ls -F
           echo "Listing dist directory contents:"
           if [ -d dist ]; then
             ls -R dist/
           else
-            echo "ERROR: dist directory does not exist!"
+            echo "ERROR: dist directory not found!"
             exit 1
           fi
 
-          # Check for any .exe files
-          EXE_COUNT=$(ls dist/*.exe 2>/dev/null | wc -l)
-          if [ "$EXE_COUNT" -eq 0 ]; then
-            echo "ERROR: No .exe files found in dist/ folder!"
+          EXE_PATH=$(ls dist/*.exe 2>/dev/null | head -n 1)
+          if [ -z "$EXE_PATH" ]; then
+            echo "ERROR: No .exe installer found in dist/ folder!"
             exit 1
           else
-            echo "Found $EXE_COUNT .exe file(s) in dist/ folder."
+            echo "Found installer: $EXE_PATH"
           fi
+
+      - name: Upload Build Artifacts (Debug)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Loud-Client-Build-${{ steps.get_version.outputs.VERSION }}
+          path: dist/*.exe
+          retention-days: 5
 
       - name: Create or Update Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         with:
-          files: |
-            dist/*.exe
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          name: Loud Client v${{ steps.get_version.outputs.VERSION }}
+          files: dist/*.exe
           generate_release_notes: true
           draft: false
           prerelease: false
