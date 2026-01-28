@@ -38,14 +38,16 @@ A combinação de `--disable-gpu-vsync` e o uso de `contextIsolation: true` com 
 ### 3. FPS Alto e Consistente
 O CSS customizado remove elementos pesados da UI original do Krunker, como anúncios, animações de menu e sombras complexas, reduzindo o custo de *layout* e *paint* a cada frame.
 
-## Sistema de Perfis
-O client oferece perfis acessíveis via menu:
-*   **Default**: Otimizações base de performance.
-*   **Extreme (No UI)**: Remove quase toda a interface de HUD para máximo FPS durante o gameplay competitivo.
-*   **Low Latency**: Foca em remover elementos de chat e overlays que podem causar picos de processamento.
+## Configurações de Performance (Automático)
+O Loud Client já vem pré-configurado com as melhores opções para o Krunker.io:
+*   **Perfil Extreme Ativado**: Remove automaticamente a interface de HUD desnecessária para garantir o máximo de FPS.
+*   **FPS Ilimitado**: O limite de frames do navegador é removido por padrão.
+*   **Latência Mínima**: Todas as flags do Chromium foram ajustadas para reduzir o input lag.
 
-## Controle de FPS
-O client permite definir um teto de FPS através do menu "FPS Cap". Isso é feito via interceptação de `requestAnimationFrame` no `preload.js`, garantindo que o jogo não consuma mais recursos do que o necessário, mantendo frametimes consistentes.
+## Atalhos do Teclado
+*   `F11`: Alternar Tela Cheia.
+*   `F5`: Recarregar o Jogo.
+*   `Alt`: Mostrar/Esconder barra de ferramentas superior (Versão).
 
 ## Como Gerar e Publicar na Aba Releases do GitHub
 
