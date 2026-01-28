@@ -1,7 +1,7 @@
 {
   "name": "loud-client",
   "productName": "Loud Client",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Krunker.io Performance Client",
   "main": "src/main.js",
   "scripts": {
@@ -24,7 +24,8 @@
       "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Loud Client"
+      "shortcutName": "Loud Client",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "files": [
       "src/**/*",

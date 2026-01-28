@@ -23,10 +23,6 @@ if (!isDev) {
 // Flags de Performance Estáveis
 app.commandLine.appendSwitch('disable-frame-rate-limit');
 app.commandLine.appendSwitch('disable-gpu-vsync');
-app.commandLine.appendSwitch('force-gpu-rasterization');
-app.commandLine.appendSwitch('enable-gpu-rasterization');
-app.commandLine.appendSwitch('enable-accelerated-2d-canvas');
-app.commandLine.appendSwitch('ignore-gpu-blocklist');
 
 // Otimização de Background (Evita quedas de FPS)
 app.commandLine.appendSwitch('disable-background-timer-throttling');
