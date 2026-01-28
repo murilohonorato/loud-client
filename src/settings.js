@@ -6,13 +6,9 @@ const getSettingsPath = () => path.join(app.getPath('userData'), 'settings.json'
 
 const defaultSettings = {
     fpsCap: -1,
-    profile: 'extreme' // Definido como Extreme para máximo desempenho por padrão
+    profile: 'low-latency' // Safer default that still improves performance
 };
 
-/**
- * Carrega as configurações do arquivo JSON.
- * @returns {Object} As configurações carregadas ou as padrões.
- */
 function loadSettings() {
     try {
         const settingsPath = getSettingsPath();
@@ -26,10 +22,6 @@ function loadSettings() {
     return defaultSettings;
 }
 
-/**
- * Salva as configurações no arquivo JSON.
- * @param {Object} newSettings Objeto com as novas configurações a serem mescladas.
- */
 function saveSettings(newSettings) {
     try {
         const settingsPath = getSettingsPath();

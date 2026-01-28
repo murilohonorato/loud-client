@@ -10,7 +10,7 @@ jobs:
   release:
     runs-on: windows-latest
     permissions:
-      contents: write # Necessário para criar/atualizar releases
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,12 +28,6 @@ jobs:
         run: npm run build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: List Artifacts
-        shell: bash
-        run: |
-          echo "Listing dist directory:"
-          ls -R dist/
 
       - name: Create or Update Release
         uses: softprops/action-gh-release@v2

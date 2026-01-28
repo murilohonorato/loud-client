@@ -1,9 +1,8 @@
 const { Menu } = require('electron');
+const { saveSettings } = require('./settings');
 
 /**
  * Cria o menu da aplicação.
- * @param {BrowserWindow} mainWindow A janela principal.
- * @param {boolean} isDev Se está em modo de desenvolvimento.
  */
 function createMenu(mainWindow, isDev) {
     const template = [
@@ -27,11 +26,33 @@ function createMenu(mainWindow, isDev) {
             ]
         },
         {
+            label: 'Configurações',
+            submenu: [
+                {
+                    label: 'Perfil de Performance',
+                    submenu: [
+                        { label: 'Default', click: () => { mainWindow.webContents.send('set-profile', 'default'); saveSettings({ profile: 'default' }); } },
+                        { label: 'Extreme (No UI)', click: () => { mainWindow.webContents.send('set-profile', 'extreme'); saveSettings({ profile: 'extreme' }); } },
+                        { label: 'Low Latency', click: () => { mainWindow.webContents.send('set-profile', 'low-latency'); saveSettings({ profile: 'low-latency' }); } }
+                    ]
+                },
+                {
+                    label: 'Limite de FPS',
+                    submenu: [
+                        { label: 'Unlimited', click: () => { mainWindow.webContents.send('set-fps-cap', -1); saveSettings({ fpsCap: -1 }); } },
+                        { label: '60 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 60); saveSettings({ fpsCap: 60 }); } },
+                        { label: '144 FPS', click: () => { mainWindow.webContents.send('set-fps-cap', 144); saveSettings({ fpsCap: 144 }); } }
+                    ]
+                }
+            ]
+        },
+        {
             label: 'Client',
             submenu: [
-                { label: 'Recarregar', role: 'reload' },
-                { label: 'Tela Cheia', click: () => mainWindow.setFullScreen(!mainWindow.isFullScreen()) },
-                ...(isDev ? [{ label: 'DevTools', role: 'toggleDevTools' }] : []),
+                { label: 'Recarregar (F5)', role: 'reload' },
+                { label: 'Tela Cheia (F11)', click: () => mainWindow.setFullScreen(!mainWindow.isFullScreen()) },
+                ...(isDev ? [{ label: 'DevTools (F12)', role: 'toggleDevTools' }] : []),
+                { type: 'separator' },
                 { label: 'Sair', role: 'quit' }
             ]
         }

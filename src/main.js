@@ -7,11 +7,12 @@ const { loadSettings } = require('./settings');
 const isDev = !app.isPackaged;
 
 /**
- * Configuração de Performance do Chromium
- * Flags otimizadas e estáveis para Krunker.io
+ * Chromium Performance Flags
+ * Otimizadas para Krunker.io - Foco em Estabilidade e FPS
  */
 
 if (!isDev) {
+    // Desativar logs em produção para economizar recursos
     console.log = () => {};
     console.debug = () => {};
     console.info = () => {};
@@ -19,7 +20,7 @@ if (!isDev) {
     console.error = () => {};
 }
 
-// Essenciais para FPS alto e baixa latência
+// Flags de Performance Estáveis
 app.commandLine.appendSwitch('disable-frame-rate-limit');
 app.commandLine.appendSwitch('disable-gpu-vsync');
 app.commandLine.appendSwitch('force-gpu-rasterization');
@@ -27,13 +28,15 @@ app.commandLine.appendSwitch('enable-gpu-rasterization');
 app.commandLine.appendSwitch('enable-accelerated-2d-canvas');
 app.commandLine.appendSwitch('ignore-gpu-blocklist');
 
-// Estabilidade de Background
+// Otimização de Background (Evita quedas de FPS)
 app.commandLine.appendSwitch('disable-background-timer-throttling');
 app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows');
 
-// Redução de Overhead
+// Redução de Latência e Overhead
 app.commandLine.appendSwitch('no-proxy-server');
+app.commandLine.appendSwitch('disable-site-isolation-trials');
+app.commandLine.appendSwitch('disable-low-end-device-mode');
 app.commandLine.appendSwitch('disable-breakpad');
 app.commandLine.appendSwitch('disable-component-update');
 app.commandLine.appendSwitch('disable-print-preview');
@@ -44,9 +47,6 @@ app.commandLine.appendSwitch('disable-hang-monitor');
 app.commandLine.appendSwitch('disable-bundled-ppapi-flash');
 app.commandLine.appendSwitch('disable-logging');
 
-// Outros
-app.commandLine.appendSwitch('high-dpi-support', '1');
-
 let mainWindow;
 
 function createWindow() {
@@ -55,8 +55,8 @@ function createWindow() {
         height: 720,
         title: "Loud Client",
         backgroundColor: '#000000',
-        autoHideMenuBar: true,
-        icon: path.join(__dirname, '..', 'icon.png'),
+        autoHideMenuBar: true, // Menu oculto por padrão (pressione Alt)
+        icon: path.join(__dirname, '..', 'build', 'icon.png'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
@@ -66,11 +66,12 @@ function createWindow() {
         }
     });
 
+    // Iniciar menu simplificado
     createMenu(mainWindow, isDev);
 
     mainWindow.loadURL('https://krunker.io');
 
-    // Suporte a Atalhos de Teclado (F11, F5, F12)
+    // Atalhos de Teclado (F11: Tela Cheia, F5: Recarregar, F12: DevTools)
     mainWindow.webContents.on('before-input-event', (event, input) => {
         if (input.type === 'keyDown') {
             if (input.key === 'F11') {
@@ -86,6 +87,7 @@ function createWindow() {
         }
     });
 
+    // Aplicar configurações de performance ao carregar
     mainWindow.webContents.on('did-finish-load', () => {
         const settings = loadSettings();
         mainWindow.webContents.send('set-profile', settings.profile);
@@ -113,6 +115,7 @@ app.on('activate', function () {
     if (mainWindow === null) createWindow();
 });
 
+// Comunicação IPC
 ipcMain.on('change-url', (event, url) => {
     if (mainWindow) {
         mainWindow.loadURL(url);
