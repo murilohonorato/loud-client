@@ -1,7 +1,7 @@
 {
   "name": "loud-client",
   "productName": "Loud Client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Krunker.io Performance Client",
   "main": "src/main.js",
   "scripts": {
